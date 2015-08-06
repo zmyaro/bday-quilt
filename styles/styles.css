@@ -1,0 +1,52 @@
+.appBar button {
+	font-size: 60%;
+	width: auto;
+	
+	-webkit-border-radius: 28px;
+	   -moz-border-radius: 28px;
+	        border-radius: 28px;
+	
+	margin-right: -12px;
+	float: right;
+}
+
+#bdayList {
+	padding: 0;
+}
+	#bdayList li {
+		list-style-type: none;
+	}
+		#bdayList li button {
+			-webkit-box-sizing: border-box;
+			   -moz-box-sizing: border-box;
+			        box-sizing: border-box;
+			width: 48px;
+			height: 48px;
+			padding: 8px;
+			margin: 0;
+			
+			-webkit-border-radius: 50%;
+			   -moz-border-radius: 50%;
+			        border-radius: 50%;
+		}
+		#bdayList li .dateInput {
+			/* 100% - 48px - 48px - 8px */
+			width: calc(100% - 104px);
+		}
+		#bdayList li .colorPreview {
+			display: inline-block;
+			width: 28px;
+			height: 28px;
+			margin: 14px;
+			vertical-align: top;
+			
+			-webkit-border-radius: 2px;
+			   -moz-border-radius: 2px;
+			        border-radius: 2px;
+			
+			background-color: black;
+		}
+
+#canvas {
+	display: none;
+}
