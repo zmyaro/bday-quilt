@@ -1,14 +1,17 @@
-.appBar button {
-	font-size: 60%;
-	width: auto;
-	
-	-webkit-border-radius: 28px;
-	   -moz-border-radius: 28px;
-	        border-radius: 28px;
-	
-	margin-right: -12px;
-	float: right;
+.appBar {
+	background-color: #f10e9b;
 }
+	.appBar button {
+		font-size: 60%;
+		width: auto;
+		
+		-webkit-border-radius: 28px;
+		   -moz-border-radius: 28px;
+		        border-radius: 28px;
+		
+		margin-right: -12px;
+		float: right;
+	}
 
 #bdayList {
 	padding: 0;
