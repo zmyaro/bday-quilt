@@ -53,7 +53,6 @@ function handleColorModeChange() {
 }
 
 function handleDateChange() {
-console.log(this.value);
 	updateStoredDates();
 	updateColors();
 }
@@ -62,57 +61,74 @@ console.log(this.value);
  * Update the color previews
  */
 function updateColors() {
-	var mode = document.getElementById('colorMode').value,
+	var colorMode = document.getElementById('colorMode').value,
 		bdayItems = document.getElementById('bdayList').getElementsByTagName('li');
 	
 	// Convert bdayItems to an Array.
 	bdayItems = Array.prototype.slice.call(bdayItems);
 	
 	bdayItems.forEach(function (item) {
-		var date = dateParseRegex.exec(item.getElementsByClassName('dateInput')[0].value),
+		var date = item.getElementsByClassName('dateInput')[0].value,
 			preview = item.getElementsByClassName('colorPreview')[0];
 
 		// If there is no valid date, skip that item.
 		if (!date) {
 			return;
 		}
-		switch (mode) {
-			case 'ymdDec':
-				preview.style.backgroundColor =
-					'#' + date[1] +
-					date[2] +
-					date[3];
-				break;
-			case 'ymdHex':
-				preview.style.backgroundColor =
-					'#' + parseInt(date[1]).toString(16) +
-					parseInt(date[2]).toString(16) +
-					parseInt(date[2]).toString(16);
-				break;
-			case 'dmyDec':
-				preview.style.backgroundColor =
-					'#' + date[3] +
-					date[2] +
-					date[1];
-				break;
-			case 'dmyHex':
-				preview.style.backgroundColor =
-					'#' + parseInt(date[3]).toString(16) +
-					parseInt(date[2]).toString(16) +
-					parseInt(date[1]).toString(16);
-				break;
-			case 'mdyDec':
-				preview.style.backgroundColor =
-					'#' + date[2] +
-					date[1] +
-					date[3];
-				break;
-			case 'mdyHex':
-				preview.style.backgroundColor =
-					'#' + parseInt(date[2]).toString(16) +
-					parseInt(date[1]).toString(16) +
-					parseInt(date[3]).toString(16);
-				break;
-		}
+		preview.style.backgroundColor = convertDateToColor(date, colorMode);
 	});
+}
+
+/**
+ * Convert a date string to a hex color.
+ * @param {String} date - The date as a YYYY-MM-DD string
+ * @param {String} colorMode - The method of converting the string to a color
+ * @returns {String} The hex color code
+ */
+function convertDateToColor(date, colorMode) {
+	date = dateParseRegex.exec(date);
+	switch (colorMode) {
+		case 'ymdDec':
+			return '#' + make2Digits(date[1]) +
+				make2Digits(date[2]) +
+				make2Digits(date[3]);
+			break;
+		case 'ymdHex':
+			return '#' + make2Digits(parseInt(date[1]).toString(16)) +
+				make2Digits(parseInt(date[2]).toString(16)) +
+				make2Digits(parseInt(date[2]).toString(16));
+			break;
+		case 'dmyDec':
+			return '#' + make2Digits(date[3]) +
+				make2Digits(date[2]) +
+				make2Digits(date[1]);
+			break;
+		case 'dmyHex':
+			return '#' + make2Digits(parseInt(date[3]).toString(16)) +
+				make2Digits(parseInt(date[2]).toString(16)) +
+				make2Digits(parseInt(date[1]).toString(16));
+			break;
+		case 'mdyDec':
+			return '#' + make2Digits(date[2]) +
+				make2Digits(date[1]) +
+				make2Digits(date[3]);
+			break;
+		case 'mdyHex':
+			return '#' + make2Digits(parseInt(date[2]).toString(16)) +
+				make2Digits(parseInt(date[1]).toString(16)) +
+				make2Digits(parseInt(date[3]).toString(16));
+			break;
+	}
+}
+
+/**
+ * Prepend a zero on any one-digit number.
+ * @param {Number|String} num - The number to make two digits
+ * @returns {String} The number as two digits
+ */
+function make2Digits(num) {
+	if (('' + num).length < 2) {
+		return '0' + num;
+	}
+	return num;
 }
