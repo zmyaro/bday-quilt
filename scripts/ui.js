@@ -86,6 +86,7 @@ function updateColors() {
 			return;
 		}
 		preview.style.backgroundColor = convertDateToColor(date, colorMode);
+		console.log(convertDateToColor(date, colorMode));
 	});
 }
 
@@ -98,47 +99,75 @@ function updateColors() {
 function convertDateToColor(date, colorMode) {
 	date = dateParseRegex.exec(date);
 	switch (colorMode) {
-		case 'ymdDec':
-			return '#' + make2Digits(date[1]) +
-				make2Digits(date[2]) +
-				make2Digits(date[3]);
+		case 'yymmddDec':
+			return '#' +
+				pad(date[1], 2) +
+				pad(date[2], 2) +
+				pad(date[3], 2);
 			break;
-		case 'ymdHex':
-			return '#' + make2Digits(parseInt(date[1]).toString(16)) +
-				make2Digits(parseInt(date[2]).toString(16)) +
-				make2Digits(parseInt(date[2]).toString(16));
+		case 'yyyymdHex':
+			return '#' + decSumToHex([date[1], date[2], date[3]], false);
 			break;
-		case 'dmyDec':
-			return '#' + make2Digits(date[3]) +
-				make2Digits(date[2]) +
-				make2Digits(date[1]);
+		case 'yyyymmddHex':
+			return '#' + decSumToHex([date[1], date[2], date[3]], true);
 			break;
-		case 'dmyHex':
-			return '#' + make2Digits(parseInt(date[3]).toString(16)) +
-				make2Digits(parseInt(date[2]).toString(16)) +
-				make2Digits(parseInt(date[1]).toString(16));
+		case 'ddmmyyDec':
+			return '#' +
+				pad(date[3], 2) +
+				pad(date[2], 2) +
+				pad(date[1], 2);
 			break;
-		case 'mdyDec':
-			return '#' + make2Digits(date[2]) +
-				make2Digits(date[1]) +
-				make2Digits(date[3]);
+		case 'dmyyyyHex':
+			return '#' + decSumToHex([date[3], date[2], date[1]], false);
 			break;
-		case 'mdyHex':
-			return '#' + make2Digits(parseInt(date[2]).toString(16)) +
-				make2Digits(parseInt(date[1]).toString(16)) +
-				make2Digits(parseInt(date[3]).toString(16));
+		case 'ddmmyyyyHex':
+			return '#' + decSumToHex([date[3], date[2], date[1]], true);
+			break;
+		case 'mmddyyDec':
+			return '#' +
+				pad(date[2], 2) +
+				pad(date[3], 2) +
+				pad(date[1], 2);
+			break;
+		case 'mdyyyyHex':
+			return '#' + decSumToHex([date[2], date[3], date[1]], false);
+			break;
+		case 'mmddyyyyHex':
+			return '#' + decSumToHex([date[2], date[3], date[1]], true);
 			break;
 	}
 }
 
 /**
- * Prepend a zero on any one-digit number.
- * @param {Number|String} num - The number to make two digits
- * @returns {String} The number as two digits
+ * Prepend zeros on any number of insufficient length.
+ * @param {Number|String} num - The number to make longer
+ * @param {Number} len - The desired length
+ * @returns {String} The number at the desired length
  */
-function make2Digits(num) {
-	if (('' + num).length < 2) {
-		return '0' + num;
+function pad(num, len) {
+	var numLen = ('' + num).length;
+	if (numLen < len) {
+		return Array(len - numLen + 1).join('0') + num;
 	}
 	return num;
+}
+
+/**
+ * Adds decimal numbers and returns the sum as a six-digit hexadecimal number.
+ * @param {Array<Number>} nums - The numbers to sum
+ * @param {Boolean} padDigits - Whether to pad the numbers to two digits
+ * @returns {String} The sum in hexadecimal
+ */
+function decSumToHex(nums, padDigits) {
+	if (padDigits) {
+		return pad(parseInt('' +
+			pad(nums[0], 2) +
+			pad(nums[1], 2) +
+			pad(nums[2], 2)).toString(16), 6);
+	} else {
+		return pad(parseInt('' +
+			parseInt(nums[0]) +
+			parseInt(nums[1]) +
+			parseInt(nums[2])).toString(16), 6);
+	}
 }
