@@ -10,18 +10,22 @@
 		
 		<script type="text/javascript" src="scripts/material-touch.js"></script>
 		<script type="text/javascript" src="scripts/quilt.js"></script>
+		<script type="text/javascript" src="scripts/storage.js"></script>
 		<script type="text/javascript" src="scripts/ui.js"></script>
 	</head>
 	<body>
-		<header role="toolbar" class="appBar">
+		<header role="toolbar" class="appBar z1">
 			Birthday Quilt Maker
 			<button id="generateBtn">Generate</button>
 		</header>
 		<h2>General Settings</h2>
 		<select id="colorMode">
 			<option value="ymdDec">Year-month-day (decimal)</option>
-			<option value="ymdDecAsHex">Year-month-day (decimal as hex)</option>
 			<option value="ymdHex">Year-month-day (hexadecimal)</option>
+			<option value="dmyDec">Day-month-year (decimal)</option>
+			<option value="dmyHex">Day-month-year (hexadecimal)</option>
+			<option value="mdyDec">Month-day-year (decimal)</option>
+			<option value="mdyHex">Month-day-year (hexadecimal)</option>
 		</select>
 		<h2>Birthdays</h2>
 		<ul id="bdayList">
