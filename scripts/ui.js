@@ -10,7 +10,7 @@ window.onload = function () {
 	
 	// Shorten the app bar title in narrow windows.
 	window.onresize = function () {
-		if (window.innerWidth < 320) {
+		if (window.innerWidth < 324) {
 			document.getElementById('title').innerHTML = 'B-Day Quilt Maker';
 		} else {
 			document.getElementById('title').innerHTML = 'Birthday Quilt Maker';
