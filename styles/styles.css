@@ -2,8 +2,8 @@
 	background-color: #f10e9b;
 }
 	.appBar button {
-		font-size: 60%;
-		width: auto;
+		font-size: 80%;
+		padding: 12px;
 		
 		-webkit-border-radius: 28px;
 		   -moz-border-radius: 28px;
